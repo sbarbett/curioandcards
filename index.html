@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Curio &amp; Cards</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+3:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: only light;
+        --bg: #111218;
+        --bg-accent: #1c1e29;
+        --text: #f4f2ed;
+        --muted: rgba(244, 242, 237, 0.76);
+        --accent: #d59b3b;
+        --accent-soft: rgba(213, 155, 59, 0.16);
+        --card: rgba(19, 21, 30, 0.76);
+        --shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+        --border: rgba(213, 155, 59, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at 20% 20%, rgba(213, 155, 59, 0.18), transparent 55%),
+          radial-gradient(circle at 80% 10%, rgba(112, 138, 173, 0.22), transparent 50%),
+          radial-gradient(circle at 50% 85%, rgba(72, 67, 92, 0.4), transparent 60%),
+          var(--bg);
+        font-family: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        padding: 2rem clamp(1.5rem, 5vw, 3rem);
+      }
+
+      main {
+        max-width: 480px;
+        width: min(92vw, 520px);
+        background: linear-gradient(145deg, rgba(28, 30, 41, 0.82), rgba(11, 12, 18, 0.82));
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: clamp(2rem, 5vw, 3rem);
+        backdrop-filter: blur(12px);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      main::before {
+        content: "";
+        position: absolute;
+        inset: 14% 12% 50%;
+        background: linear-gradient(120deg, rgba(213, 155, 59, 0.32), rgba(112, 138, 173, 0.2));
+        filter: blur(80px);
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      .avatar {
+        width: 112px;
+        height: 112px;
+        margin: 0 auto 1.25rem;
+        border-radius: 50%;
+        padding: 4px;
+        background: linear-gradient(145deg, rgba(213, 155, 59, 0.85), rgba(112, 138, 173, 0.6));
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.48);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .avatar img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      .title {
+        font-family: "Playfair Display", "Times New Roman", serif;
+        font-size: clamp(2.2rem, 5vw, 2.8rem);
+        line-height: 1.1;
+        margin: 1.4rem 0 0.8rem;
+      }
+
+      .bio {
+        font-size: 1.05rem;
+        color: var(--muted);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .links {
+        display: grid;
+        gap: 0.9rem;
+        margin-bottom: 2.2rem;
+      }
+
+      .link-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 0.95rem;
+        border-radius: 14px;
+        border: 1px solid rgba(244, 242, 237, 0.08);
+        background: rgba(17, 18, 24, 0.65);
+        color: inherit;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
+      }
+
+      .link-card img {
+        width: 32px;
+        height: auto;
+        flex-shrink: 0;
+        filter: saturate(1.1);
+      }
+
+      .link-card span {
+        letter-spacing: 0.02em;
+      }
+
+      .link-card:hover,
+      .link-card:focus-visible {
+        transform: translateY(-2px);
+        background: rgba(213, 155, 59, 0.12);
+        border-color: rgba(213, 155, 59, 0.5);
+        color: var(--text);
+      }
+
+      .link-card:focus-visible {
+        outline: 2px solid rgba(213, 155, 59, 0.7);
+        outline-offset: 4px;
+      }
+
+      .stream {
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .stream a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .stream a img {
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
+        object-fit: cover;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+      }
+
+      .stream a:hover,
+      .stream a:focus-visible {
+        color: #f4d18c;
+        text-decoration: underline;
+        outline: none;
+      }
+
+      footer {
+        margin-top: 2.6rem;
+        color: rgba(244, 242, 237, 0.55);
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      @media (max-width: 520px) {
+        body {
+          padding: 1.25rem;
+        }
+
+        main {
+          padding: 1.8rem clamp(1rem, 4vw, 1.4rem);
+        }
+
+        .title {
+          font-size: clamp(2rem, 8vw, 2.4rem);
+        }
+
+        .bio {
+          font-size: 1rem;
+        }
+
+        .avatar {
+          width: 92px;
+          height: 92px;
+          margin-bottom: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="avatar">
+        <img src="/img/curioandcards.jpeg" alt="Curio &amp; Cards profile portrait" />
+      </div>
+      <div class="badge">Curio &amp; Cards</div>
+      <h1 class="title">Hi, I&rsquo;m Shane.</h1>
+      <p class="bio">
+        I sell Magic: The Gathering and curious things that I find.
+      </p>
+      <div class="links">
+        <a class="link-card" href="https://www.tcgplayer.com/search/magic/product?productLineName=magic&amp;seller=5017c760&amp;view=grid" rel="noopener noreferrer" target="_blank">
+          <img src="/img/tcgplayer.png" alt="TCGplayer logo" />
+          <span>Shop Magic on TCGplayer</span>
+        </a>
+        <a class="link-card" href="https://www.ebay.com/usr/curioandcards" rel="noopener noreferrer" target="_blank">
+          <img src="/img/ebay.svg" alt="eBay logo" />
+          <span>Explore curios on eBay</span>
+        </a>
+      </div>
+      <p class="stream">
+        I also stream on Whatnot every Tuesday and Thursday.
+        <a
+          href="https://www.whatnot.com/s/1PzYnYhB"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img src="/img/whatnot.webp" alt="Whatnot logo" />
+          Catch the stream
+        </a>
+      </p>
+      <footer>Curio &amp; Cards &middot; Est. 2025</footer>
+    </main>
+  </body>
+</html>
+
